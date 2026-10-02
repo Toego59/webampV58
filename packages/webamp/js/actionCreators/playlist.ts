@@ -42,6 +42,41 @@ export function removeAllTracks(): Thunk {
   };
 }
 
+export function removeDuplicateTracks(): Thunk {
+  return (dispatch, getState) => {
+    const {
+      tracks,
+      playlist: { trackOrder, currentTrack },
+    } = getState();
+    const firstTrackByUrl = new Map<string, number>();
+    const idsToRemove = new Set<number>();
+
+    for (const id of trackOrder) {
+      const url = tracks[id]?.url;
+      if (url == null) {
+        continue;
+      }
+
+      const firstId = firstTrackByUrl.get(url);
+      if (firstId == null) {
+        firstTrackByUrl.set(url, id);
+      } else if (id === currentTrack) {
+        idsToRemove.add(firstId);
+        firstTrackByUrl.set(url, id);
+      } else {
+        idsToRemove.add(id);
+      }
+    }
+
+    if (idsToRemove.size > 0) {
+      dispatch({
+        type: "REMOVE_TRACKS",
+        ids: trackOrder.filter((id) => idsToRemove.has(id)),
+      });
+    }
+  };
+}
+
 export function reverseList(): Action {
   return { type: "REVERSE_LIST" };
 }

@@ -96,7 +96,6 @@ describe("playlist reducer", () => {
       trackOrder: [3, 2, 1, 0],
       lastSelectedIndex: 1,
     };
-
     const nextState = reducer(initialState, {
       type: "SHIFT_CLICKED_TRACK",
       index: 3,
@@ -105,6 +104,26 @@ describe("playlist reducer", () => {
       lastSelectedIndex: 1,
       selectedTracks: [2, 1, 0],
       trackOrder: [3, 2, 1, 0],
+    });
+  });
+  it("removes deleted tracks from the selection", () => {
+    const initialState = {
+      trackOrder: [1, 2, 3],
+      currentTrack: 3,
+      selectedTracks: [2, 3],
+      lastSelectedIndex: 2,
+    };
+
+    const nextState = reducer(initialState, {
+      type: "REMOVE_TRACKS",
+      ids: [3],
+    });
+
+    expect(nextState).toEqual({
+      trackOrder: [1, 2],
+      currentTrack: null,
+      selectedTracks: [2],
+      lastSelectedIndex: null,
     });
   });
 });

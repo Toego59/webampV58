@@ -1,13 +1,16 @@
 import WebampLazy from "../../webamp/js/webampLazy";
 import { Suspense } from "react";
 import WebampIcon from "./WebampIcon";
+import SurpriseIcon from "./SurpriseIcon";
 // import Mp3Icon from "./Mp3Icon";
 import SkinIcon from "./SkinIcon";
 import { /* defaultInitialTracks, */ SHOW_DESKTOP_ICONS } from "./config";
 import { useWindowSize } from "../../webamp/js/hooks";
 import availableSkins from "./availableSkins";
 import DesktopLinkIcon from "./DesktopLinkIcon";
+// @ts-ignore
 import museumIcon from "../images/icons/internet-folder-32x32.png";
+// @ts-ignore
 import soundcloudIcon from "../images/icons/soundcloud-32x32.png";
 import { SoundCloudPlaylist } from "./SoundCloud";
 // import MilkIcon from "./MilkIcon";
@@ -28,7 +31,10 @@ const DemoDesktop = ({ webamp, soundCloudPlaylist }: Props) => {
 
   const columns = Math.floor(visibleWidth / ICON_WIDTH);
 
-  const icons = [<WebampIcon webamp={webamp} />];
+  const icons = [
+    <WebampIcon webamp={webamp} />,
+    <SurpriseIcon webamp={webamp} />,
+  ];
 
   if (SHOW_DESKTOP_ICONS) {
     icons.push(

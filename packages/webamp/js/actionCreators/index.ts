@@ -78,6 +78,7 @@ export {
   cropPlaylist,
   removeSelectedTracks,
   removeAllTracks,
+  removeDuplicateTracks,
   reverseList,
   randomizeList,
   sortListByTitle,

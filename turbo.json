@@ -12,7 +12,7 @@
       "outputs": ["built/**"]
     },
     "webamp-demo#build": {
-      "dependsOn": ["ani-cursor#build", "winamp-eqf#build"],
+      "dependsOn": ["ani-cursor#build", "winamp-eqf#build", "webamp#build"],
       "outputs": ["dist/**"]
     },
     "webamp-docs#build": {

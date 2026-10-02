@@ -13,6 +13,7 @@ import {
   setEqToMin,
   setEqToMid,
 } from "./";
+import { removeDuplicateTracks } from "./playlist";
 
 test("stop", () => {
   const expectedAction = { type: "STOP" };
@@ -75,6 +76,29 @@ test("toggleRepeat", () => {
 test("toggleShuffle", () => {
   const expectedAction = { type: "TOGGLE_SHUFFLE" };
   expect(toggleShuffle()).toEqual(expectedAction);
+});
+
+test("removeDuplicateTracks preserves the currently playing copy", () => {
+  const mockDispatch = vi.fn();
+  const state = {
+    tracks: {
+      1: { url: "https://example.com/a.mp3" },
+      2: { url: "https://example.com/b.mp3" },
+      3: { url: "https://example.com/a.mp3" },
+      4: { url: "https://example.com/a.mp3" },
+    },
+    playlist: {
+      trackOrder: [1, 2, 3, 4],
+      currentTrack: 4,
+    },
+  };
+
+  removeDuplicateTracks()(mockDispatch, () => state);
+
+  expect(mockDispatch).toHaveBeenCalledWith({
+    type: "REMOVE_TRACKS",
+    ids: [1, 3],
+  });
 });
 
 test("setPreamp", () => {

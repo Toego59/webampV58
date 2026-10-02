@@ -92,9 +92,7 @@ const playlist = (
           (trackId) => !actionIds.has(trackId)
         ),
         currentTrack: actionIds.has(Number(currentTrack)) ? null : currentTrack,
-        selectedTracks: Array.from(state.selectedTracks).filter((id) =>
-          actionIds.has(id)
-        ),
+        selectedTracks: state.selectedTracks.filter((id) => !actionIds.has(id)),
         // TODO: This could probably be made to work, but we clear it just to be safe.
         lastSelectedIndex: null,
       };

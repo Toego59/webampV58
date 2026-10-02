@@ -12,7 +12,7 @@ export interface MediaState {
 }
 
 const defaultState = {
-  timeMode: TIME_MODE.ELAPSED,
+  timeMode: TIME_MODE.REMAINING,
   timeElapsed: 0,
 
   // The winamp ini file declares the default volume as "200".
